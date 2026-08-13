@@ -4,7 +4,6 @@
   const IMG = [
     "https://www.image2url.com/r2/default/files/1786411543711-867c3600-3471-42cb-99d0-c45e6221c53b.jpg",
     "https://www.image2url.com/r2/default/files/1785872875243-a7fb0398-8959-464b-84df-0a31079ab40d.jpg",
-    "https://www.image2url.com/r2/default/files/1785872982111-65e959d8-d2d8-42d3-9c7d-4c8d2ae572ea.jpg",
   ];
 
   const DELAY_KEY = "popup_delay_1h";
@@ -17,6 +16,11 @@
   let currentIndex = 0;
   let sliderTimer = null;
   let changingSlide = false;
+
+  let marqueeFrame = null;
+  let marqueeX = 0;
+  let marqueeLastTime = 0;
+  const MARQUEE_SPEED = 55;
 
   /* ==============================
      CEK HALAMAN
@@ -337,14 +341,77 @@
         box-shadow: 0 0 10px #168cff;
       }
 
+      /* ==============================
+         RUNNING TEXT - BIRU MAUSLOT
+      ============================== */
       #mauslot-title {
-        font-weight: 900;
-        font-size: 16px;
-        color: #bfe6ff;
-        letter-spacing: 2px;
-        text-shadow:
-          0 0 10px rgba(22, 140, 255, .9),
-          0 0 25px rgba(22, 140, 255, .55);
+        width: 600px;
+        max-width: 92vw;
+        height: 30px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        box-sizing: border-box;
+
+        background:
+          linear-gradient(
+            180deg,
+            #168cff 0%,
+            #075fbd 30%,
+            #04356f 70%,
+            #020d1f 100%
+          );
+        border: 1px solid #66c2ff;
+        border-radius: 8px;
+        box-shadow:
+          0 0 12px rgba(22, 140, 255, .7),
+          0 0 28px rgba(22, 140, 255, .35),
+          inset 0 1px 0 rgba(255, 255, 255, .2);
+      }
+
+      .mauslot-marquee-icon {
+        width: 36px;
+        min-width: 36px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+        font-size: 13px;
+        color: #fff;
+        background:
+          linear-gradient(
+            180deg,
+            #168cff 0%,
+            #075fbd 45%,
+            #020d1f 100%
+          );
+        border-right: 1px solid #66c2ff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .8);
+      }
+
+      .mauslot-marquee-area {
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      #mauslot-title-track {
+        display: inline-block;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        font-weight: 800;
+        font-size: 12px;
+        color: #fff;
+        letter-spacing: .3px;
+        line-height: 26px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .85);
+        transform: translate3d(0, 0, 0);
+        will-change: transform;
       }
 
       .mauslot-gif-row {
@@ -478,6 +545,22 @@
           max-height: 55vh;
         }
 
+        #mauslot-title {
+          width: 92vw;
+          height: 28px;
+        }
+
+        .mauslot-marquee-icon {
+          width: 32px;
+          min-width: 32px;
+          font-size: 12px;
+        }
+
+        #mauslot-title-track {
+          font-size: 11px;
+          line-height: 24px;
+        }
+
         .mauslot-gif-box {
           width: 78px;
         }
@@ -572,7 +655,12 @@
       </div>
 
       <div id="mauslot-title">
-        DIRGAHAYU INDONESIA
+        <div class="mauslot-marquee-icon">📢</div>
+        <div class="mauslot-marquee-area">
+          <div id="mauslot-title-track">
+            Selamat Datang di Mauslot, DIRGAHAYU INDONESIA, bermain dengan MAUSLOT dapatkan Bonusnya
+          </div>
+        </div>
       </div>
 
       <div class="mauslot-gif-row">
@@ -642,6 +730,60 @@
 
     const dotsContainer =
       document.getElementById("mauslot-dots");
+
+    const marqueeArea =
+      document.querySelector(".mauslot-marquee-area");
+
+    const marqueeTrack =
+      document.getElementById("mauslot-title-track");
+
+    /* ==============================
+       RUNNING TEXT - JS RINGAN
+    ============================== */
+
+    function startMarquee() {
+      if (!marqueeArea || !marqueeTrack) return;
+
+      if (marqueeFrame !== null) {
+        cancelAnimationFrame(marqueeFrame);
+      }
+
+      marqueeX = marqueeArea.clientWidth;
+      marqueeLastTime = performance.now();
+
+      marqueeTrack.style.transform =
+        "translate3d(" + marqueeX + "px,0,0)";
+
+      function runMarquee(now) {
+        const delta = Math.min(
+          (now - marqueeLastTime) / 1000,
+          0.05
+        );
+
+        marqueeLastTime = now;
+        marqueeX -= MARQUEE_SPEED * delta;
+
+        if (marqueeX <= -marqueeTrack.offsetWidth) {
+          marqueeX = marqueeArea.clientWidth;
+        }
+
+        marqueeTrack.style.transform =
+          "translate3d(" + marqueeX + "px,0,0)";
+
+        marqueeFrame =
+          requestAnimationFrame(runMarquee);
+      }
+
+      marqueeFrame =
+        requestAnimationFrame(runMarquee);
+    }
+
+    function stopMarquee() {
+      if (marqueeFrame !== null) {
+        cancelAnimationFrame(marqueeFrame);
+        marqueeFrame = null;
+      }
+    }
 
     /* ==============================
        DOT SLIDER
@@ -808,6 +950,7 @@
 
     function closePopup() {
       clearInterval(sliderTimer);
+      stopMarquee();
 
       popup.classList.add("pull-up");
       overlay.classList.add("fade-out");
@@ -852,6 +995,10 @@
 
     renderDots();
     startSliderTimer();
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(startMarquee);
+    });
   }
 
   /* ==============================
