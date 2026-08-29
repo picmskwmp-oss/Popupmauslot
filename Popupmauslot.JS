@@ -2,9 +2,9 @@
 
 (function () {
   const IMG = [
-    "https://www.image2url.com/r2/default/files/1786599562264-2e398b65-0a63-4f2b-b3cc-39ec7b8c8a8c.jpg",
-    "https://www.image2url.com/r2/default/files/1786693769131-ee7bbf0f-8374-46ad-95f1-114b785ba518.jpg",
-    "https://www.image2url.com/r2/default/files/1785872875243-a7fb0398-8959-464b-84df-0a31079ab40d.jpg",
+    "https://www.image2url.com/r2/default/files/1787986318261-037b4803-7693-47d3-ab2e-17342a38678c.png",
+    "https://www.image2url.com/r2/default/files/1787986347268-831b788e-5f1f-464b-ad9f-847678d3e4d0.png",
+    "https://www.image2url.com/r2/default/files/1787986377425-9165dda0-16e1-4248-88d5-f80f03cf03da.png",
   ];
 
   const DELAY_KEY = "popup_delay_1h";
