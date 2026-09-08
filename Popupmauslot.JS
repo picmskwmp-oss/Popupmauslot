@@ -2,9 +2,9 @@
 
 (function () {
   const IMG = [
-    "https://www.image2url.com/r2/default/files/1787986318261-037b4803-7693-47d3-ab2e-17342a38678c.png",
-    "https://www.image2url.com/r2/default/files/1787986347268-831b788e-5f1f-464b-ad9f-847678d3e4d0.png",
     "https://i.postimg.cc/W4Z9yv7Q/Event-9-9-MS.png",
+    "https://www.image2url.com/r2/default/files/1787986347268-831b788e-5f1f-464b-ad9f-847678d3e4d0.png",
+    "https://www.image2url.com/r2/default/files/1787986318261-037b4803-7693-47d3-ab2e-17342a38678c.png",
   ];
 
   const DELAY_KEY = "popup_delay_1h";
