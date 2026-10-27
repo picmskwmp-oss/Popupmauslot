@@ -658,7 +658,7 @@
         <div class="mauslot-marquee-icon">📢</div>
         <div class="mauslot-marquee-area">
           <div id="mauslot-title-track">
-            Selamat Datang di Mauslot, DIRGAHAYU INDONESIA, bermain dengan MAUSLOT dapatkan Bonusnya
+            🎉 SELAMAT DATANG DI MAUSLOT 🎉 BERAGAM BONUS MENARIK MENANTI ANDA! ✨ CEK PROMO TERBARU DAN NIKMATI PENAWARAN SPESIAL DARI MAUSLOT! 💎
           </div>
         </div>
       </div>
